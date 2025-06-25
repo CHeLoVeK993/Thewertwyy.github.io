@@ -11,7 +11,7 @@
         }
         a {
             text-decoration: none;
-            color: #58a6ff; /* GitHub-like blue */
+            color: #58a6ff;
         }
         .social-links {
             margin-top: 20px;
@@ -23,20 +23,46 @@
         .social-links img:hover {
             transform: scale(1.1);
         }
+        .lang-switcher {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        .lang-btn {
+            background: #333;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .lang-btn:hover {
+            background: #58a6ff;
+        }
     </style>
 </head>
 <body>
-    <h1>My Bio :3</h1>
-    <div>
+    <div class="lang-switcher">
+        <button class="lang-btn" onclick="switchLanguage()">RU</button>
+    </div>
+
+    <h1 id="title">My Bio :3</h1>
+    <div id="bio">
         My name is Ilya <br/> I use Arch Linux
     </div>
     
     <img src="images/my-arch.jpg" width="500" alt="My Arch Linux">
     
-    <h3>I have only recently started learning HTML and Python :3</h3>
+    <h3 id="learning">I have only recently started learning HTML and Python :3</h3>
+
+    <h1 id="first-day">First day</h1>
+
+    <h3 id="python-learning">This is my first day learning Python</h3>
+    <h3 id="help">I was able to create small programs almost on my own, sometimes Deepseek helped me</h3>
     
     <div class="social-links">
-        <h3>Contact me:</h3>
+        <h3 id="contact">Contact me:</h3>
         <!-- Telegram -->
         <a href="https://t.me/thewertwyy" target="_blank">
             <img src="images/telegram.png" width="40" alt="Telegram">
@@ -47,5 +73,33 @@
             <img src="images/github.png" width="40" alt="GitHub">
         </a>
     </div>
+
+    <script>
+        let isRussian = false;
+        
+        function switchLanguage() {
+            isRussian = !isRussian;
+            
+            if (isRussian) {
+                document.getElementById('title').textContent = 'Моя биография :3';
+                document.getElementById('bio').innerHTML = 'Меня зовут Илья <br/> Я использую Arch Linux';
+                document.getElementById('learning').textContent = 'Я только недавно начал изучать HTML и Python :3';
+                document.getElementById('first-day').textContent = 'Первый день';
+                document.getElementById('python-learning').textContent = 'Это мой первый день изучения Python';
+                document.getElementById('help').textContent = 'Я смог создать небольшие программы почти самостоятельно, иногда мне помогал Deepseek';
+                document.getElementById('contact').textContent = 'Свяжитесь со мной:';
+                document.querySelector('.lang-btn').textContent = 'EN';
+            } else {
+                document.getElementById('title').textContent = 'My Bio :3';
+                document.getElementById('bio').innerHTML = 'My name is Ilya <br/> I use Arch Linux';
+                document.getElementById('learning').textContent = 'I have only recently started learning HTML and Python :3';
+                document.getElementById('first-day').textContent = 'First day';
+                document.getElementById('python-learning').textContent = 'This is my first day learning Python';
+                document.getElementById('help').textContent = 'I was able to create small programs almost on my own, sometimes Deepseek helped me';
+                document.getElementById('contact').textContent = 'Contact me:';
+                document.querySelector('.lang-btn').textContent = 'RU';
+            }
+        }
+    </script>
 </body>
 </html>
