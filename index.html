@@ -3,81 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Bio</title>
+    <title>My Journey</title>
     <style>
         :root {
-            --primary-color: #58a6ff;
-            --bg-color: #000;
-            --text-color: #fff;
+            --main-color: #2a9d8f;
+            --accent-color: #e9c46a;
+            --dark-color: #000000;
+            --light-color: #ffffff;
+            --error-color: #e76f51;
         }
         
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: 'Fira Code', monospace, sans-serif;
         }
         
         body {
-            background: var(--bg-color); 
-            color: var(--text-color);
-            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--dark-color);
+            color: var(--light-color);
             line-height: 1.6;
-            padding: 20px;
-            max-width: 1000px;
+            padding: 2rem;
+            max-width: 1200px;
             margin: 0 auto;
         }
         
         header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 3rem;
             position: relative;
         }
         
         h1 {
-            font-size: 2.5rem;
-            margin: 20px 0;
-            color: var(--primary-color);
+            font-size: 3rem;
+            margin: 1rem 0;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            margin: 1.5rem 0;
+            color: var(--main-color);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+            display: inline-block;
         }
         
         h3 {
-            font-size: 1.3rem;
-            margin: 15px 0;
-            font-weight: normal;
+            font-size: 1.5rem;
+            margin: 1rem 0;
+            color: var(--light-color);
         }
         
-        .bio-text {
-            margin: 20px auto;
-            max-width: 600px;
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            gap: 1rem;
         }
         
-        .arch-image {
+        .tab-btn {
+            background: transparent;
+            color: var(--light-color);
+            border: 2px solid var(--main-color);
+            padding: 0.8rem 2rem;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            border-radius: 50px;
+            font-weight: bold;
+        }
+        
+        .tab-btn:hover {
+            background: var(--main-color);
+            transform: translateY(-3px);
+        }
+        
+        .tab-btn.active {
+            background: var(--main-color);
+            box-shadow: 0 5px 15px rgba(42, 157, 143, 0.4);
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 2rem;
+            background: rgba(20, 20, 20, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        .profile {
+            text-align: center;
+            margin: 2rem auto;
+            max-width: 800px;
+        }
+        
+        .profile-img {
             width: 100%;
             max-width: 500px;
             height: auto;
             border-radius: 10px;
-            margin: 20px auto;
-            display: block;
-            box-shadow: 0 0 15px rgba(88, 166, 255, 0.3);
+            border: 3px solid var(--accent-color);
+            margin: 1rem auto;
+            box-shadow: 0 0 30px rgba(233, 196, 106, 0.3);
+            transition: transform 0.3s;
+        }
+        
+        .profile-img:hover {
+            transform: scale(1.02);
         }
         
         .social-links {
-            margin: 30px 0;
+            margin: 3rem 0;
             text-align: center;
-        }
-        
-        .social-links h3 {
-            margin-bottom: 20px;
         }
         
         .social-icon {
             width: 50px;
             height: 50px;
-            margin: 0 15px;
-            transition: transform 0.3s;
+            margin: 0 1rem;
+            transition: all 0.3s;
+            filter: brightness(0.8);
         }
         
         .social-icon:hover {
             transform: scale(1.2);
+            filter: brightness(1.2) drop-shadow(0 0 10px var(--accent-color));
         }
         
         .lang-switcher {
@@ -87,55 +146,75 @@
         }
         
         .lang-btn {
-            background: #333;
+            background: var(--main-color);
             color: white;
-            border: 2px solid var(--primary-color);
-            padding: 8px 15px;
-            border-radius: 20px;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
             cursor: pointer;
-            transition: all 0.3s;
             font-weight: bold;
+            transition: all 0.3s;
         }
         
         .lang-btn:hover {
-            background: var(--primary-color);
+            background: var(--accent-color);
+            color: var(--dark-color);
+            transform: scale(1.05);
         }
         
-        /* Мобильная версия */
+        .day-entry {
+            background: rgba(30, 30, 30, 0.8);
+            border-left: 4px solid var(--accent-color);
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 0 15px 15px 0;
+            transition: all 0.3s;
+        }
+        
+        .day-entry:hover {
+            transform: translateX(10px);
+            background: rgba(40, 40, 40, 0.9);
+            box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
         @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            
             h1 {
                 font-size: 2rem;
             }
             
+            h2 {
+                font-size: 1.5rem;
+            }
+            
             h3 {
-                font-size: 1.1rem;
+                font-size: 1.2rem;
             }
             
-            .lang-switcher {
-                position: static;
-                margin-bottom: 20px;
-                text-align: right;
+            .tabs {
+                flex-direction: column;
+                align-items: center;
             }
             
-            .social-icon {
-                width: 45px;
-                height: 45px;
-                margin: 0 10px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            body {
-                padding: 15px;
+            .tab-btn {
+                width: 100%;
+                max-width: 300px;
             }
             
-            h1 {
-                font-size: 1.8rem;
+            .tab-content {
+                padding: 1rem;
             }
             
-            .social-icon {
-                width: 40px;
-                height: 40px;
+            .profile-img {
+                max-width: 100%;
             }
         }
     </style>
@@ -145,61 +224,103 @@
         <div class="lang-switcher">
             <button class="lang-btn" onclick="switchLanguage()">RU</button>
         </div>
-        <h1 id="title">My Bio :3</h1>
+        <h1 id="title">My Coding Journey</h1>
     </header>
     
+    <div class="tabs">
+        <button class="tab-btn active" onclick="openTab('bio-tab')" id="bio-btn">Profile</button>
+        <button class="tab-btn" onclick="openTab('days-tab')" id="days-btn">Progress</button>
+    </div>
+    
     <main>
-        <div class="bio-text" id="bio">
-            My name is Ilya<br>
-            I use Arch Linux
+        <div id="bio-tab" class="tab-content active">
+            <div class="profile">
+                <img src="images/my-arch.jpg" alt="Arch Linux Setup" class="profile-img">
+                <h2 id="bio-title">Ilya</h2>
+                <h3 id="bio-text">Arch Linux User & Python Developer</h3>
+                <p id="learning">Exploring Python and Web Development</p>
+                
+                <div class="social-links">
+                    <h3 id="contact">Find me online:</h3>
+                    <a href="https://t.me/thewertwyy" target="_blank">
+                        <img src="images/telegram.png" class="social-icon" alt="Telegram">
+                    </a>
+                    <a href="https://github.com/CHeLoVeK993" target="_blank">
+                        <img src="images/github.png" class="social-icon" alt="GitHub">
+                    </a>
+                </div>
+            </div>
         </div>
         
-        <img src="images/my-arch.jpg" alt="My Arch Linux Setup" class="arch-image">
-        
-        <h3 id="learning">I have only recently started learning HTML and Python :3</h3>
-        
-        <section>
-            <h1 id="first-day">First day</h1>
-            <h3 id="python-learning">This is my first day learning Python</h3>
-            <h3 id="help">I was able to create small programs almost on my own, sometimes Deepseek helped me</h3>
-        </section>
-        
-        <div class="social-links">
-            <h3 id="contact">Contact me:</h3>
-            <a href="https://t.me/thewertwyy" target="_blank" aria-label="Telegram">
-                <img src="images/telegram.png" class="social-icon" alt="Telegram">
-            </a>
-            <a href="https://github.com/CHeLoVeK993" target="_blank" aria-label="GitHub">
-                <img src="images/github.png" class="social-icon" alt="GitHub">
-            </a>
+        <div id="days-tab" class="tab-content">
+            <section class="day-entry">
+                <h2 id="first-day">Day 1: Beginning</h2>
+                <h3 id="python-learning">First contact with Python</h3>
+                <h3 id="help">Simple scripts with some help from Deepseek</h3>
+            </section>
+            
+            <section class="day-entry">
+                <h2>Day 2: Exploration</h2>
+                <h3>Mastered libraries: random, numexpr, colorama, pyowm</h3>
+                <h3>Built my first game - Rock Paper Scissors!</h3>
+            </section>
         </div>
     </main>
 
     <script>
         let isRussian = false;
         
+        function openTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            document.getElementById(tabId).classList.add('active');
+            document.getElementById(tabId + '-btn').classList.add('active');
+        }
+        
         function switchLanguage() {
             isRussian = !isRussian;
             
             const translations = {
-                title: isRussian ? 'Моя биография :3' : 'My Bio :3',
-                bio: isRussian ? 'Меня зовут Илья<br>Я использую Arch Linux' : 'My name is Ilya<br>I use Arch Linux',
-                learning: isRussian ? 'Я только недавно начал изучать HTML и Python :3' : 'I have only recently started learning HTML and Python :3',
-                firstDay: isRussian ? 'Первый день' : 'First day',
-                pythonLearning: isRussian ? 'Это мой первый день изучения Python' : 'This is my first day learning Python',
-                help: isRussian ? 'Я смог создать небольшие программы почти самостоятельно, иногда мне помогал Deepseek' : 'I was able to create small programs almost on my own, sometimes Deepseek helped me',
-                contact: isRussian ? 'Свяжитесь со мной:' : 'Contact me:',
-                button: isRussian ? 'EN' : 'RU'
+                title: isRussian ? 'Моё Путешествие в Кодинге' : 'My Coding Journey',
+                bioTitle: isRussian ? 'Илья' : 'Ilya',
+                bioText: isRussian ? 'Пользователь Arch Linux & Разработчик на Python' : 'Arch Linux User & Python Developer',
+                learning: isRussian ? 'Изучаю Python и Веб-Разработку' : 'Exploring Python and Web Development',
+                contact: isRussian ? 'Я в сети:' : 'Find me online:',
+                button: isRussian ? 'EN' : 'RU',
+                bioBtn: isRussian ? 'Профиль' : 'Profile',
+                daysBtn: isRussian ? 'Прогресс' : 'Progress',
+                firstDay: isRussian ? 'День 1: Начало' : 'Day 1: Beginning',
+                pythonLearning: isRussian ? 'Первое знакомство с Python' : 'First contact with Python',
+                help: isRussian ? 'Простые скрипты с помощью Deepseek' : 'Simple scripts with some help from Deepseek',
+                secondDay: isRussian ? 'День 2: Исследования' : 'Day 2: Exploration',
+                secondDayText1: isRussian ? 'Освоил библиотеки: random, numexpr, colorama, pyowm' : 'Mastered libraries: random, numexpr, colorama, pyowm',
+                secondDayText2: isRussian ? 'Создал свою первую игру - Камень Ножницы Бумага!' : 'Built my first game - Rock Paper Scissors!'
             };
             
             document.getElementById('title').textContent = translations.title;
-            document.getElementById('bio').innerHTML = translations.bio;
+            document.getElementById('bio-title').textContent = translations.bioTitle;
+            document.getElementById('bio-text').textContent = translations.bioText;
             document.getElementById('learning').textContent = translations.learning;
             document.getElementById('first-day').textContent = translations.firstDay;
             document.getElementById('python-learning').textContent = translations.pythonLearning;
             document.getElementById('help').textContent = translations.help;
             document.getElementById('contact').textContent = translations.contact;
             document.querySelector('.lang-btn').textContent = translations.button;
+            document.getElementById('bio-btn').textContent = translations.bioBtn;
+            document.getElementById('days-btn').textContent = translations.daysBtn;
+            
+            const dayEntries = document.querySelectorAll('#days-tab .day-entry');
+            if (dayEntries.length >= 1) {
+                dayEntries[1].querySelector('h2').textContent = translations.secondDay;
+                dayEntries[1].querySelectorAll('h3')[0].textContent = translations.secondDayText1;
+                dayEntries[1].querySelectorAll('h3')[1].textContent = translations.secondDayText2;
+            }
         }
     </script>
 </body>
